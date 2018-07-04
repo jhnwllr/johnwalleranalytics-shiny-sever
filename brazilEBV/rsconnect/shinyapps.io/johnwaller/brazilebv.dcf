@@ -1,0 +1,12 @@
+name: brazilebv
+title:
+username:
+account: johnwaller
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 366710
+bundleId: 1449340
+url: https://johnwaller.shinyapps.io/brazilebv/
+when: 1530001414.84488
+asMultiple: FALSE
+asStatic: FALSE
