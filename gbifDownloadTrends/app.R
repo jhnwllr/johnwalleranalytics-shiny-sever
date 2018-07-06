@@ -25,7 +25,7 @@ links = paste0(prodEnv,queryStrings)
 # links = paste0(localEnv,queryStrings)
     
 fluidPage(
-titlePanel("GBIF download trends"),
+titlePanel("GBIF Download Trends"),
 sidebarLayout(
 
 sidebarPanel(
