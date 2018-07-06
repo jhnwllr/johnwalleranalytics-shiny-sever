@@ -42,8 +42,7 @@ tags$ol(
 ),
 helpText("Total downloads are calculated by rolling up all downloads below a certain level. 
          So for example, if a user downloaded 5 different bird species in a single download, 
-         this would still count as 1 download for Aves. It would also count as 1 download for each of the species in  the original download.
-         In other words, a user does not have to specifically enter the name of a higher taxonomic group for it to be counted here.")
+         this would still count as 1 download for Aves.")
 ),
 mainPanel(
 highchartOutput("hcontainer",height = "500px")
