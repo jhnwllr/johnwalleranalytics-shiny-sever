@@ -12,7 +12,7 @@ enableBookmarking("url")
 ui = function(request) {
 
 localEnv= "http://127.0.0.1:3029"
-prodEnv = "https://johnwaller.shinyapps.io/gbifDownloadTrends"
+prodEnv = "http://178.128.167.105/shiny/gbifDownloadTrends/"
 queryStrings =c(
 "/?_inputs_&selectInput=%5B%22Panthera%20leo%20total%3A%20279%22%2C%22Panthera%20tigris%20total%3A%20236%22%2C%22Ursidae%20total%3A%201685%22%5D",
 "/?_inputs_&selectInput=%5B%22Arabis%20total%3A%20178%22%2C%22Drosophila%20total%3A%20105%22%2C%22Anolis%20total%3A%2038%22%5D",
@@ -25,7 +25,7 @@ links = paste0(prodEnv,queryStrings)
 # links = paste0(localEnv,queryStrings)
     
 fluidPage(
-titlePanel("gbif download trends"),
+titlePanel("GBIF download trends"),
 sidebarLayout(
 
 sidebarPanel(
@@ -40,10 +40,10 @@ tags$ol(
   tags$li(tags$a(href=links[4], "popular insect groups")),
   tags$li(tags$a(href=links[5], "the kingdoms"))
 ),
-helpText("Total downloads are calculated by rolling up all downloads below a certain taxonomic level. 
+helpText("Total downloads are calculated by rolling up all downloads below a certain level. 
          So for example, if a user downloaded 5 different bird species in a single download, 
          this would still count as 1 download for Aves. It would also count as 1 download for each of the species in  the original download.
-         In other words, a user would not have to specifically entered the name a higher taxanomic group for it to be counted here.")
+         In other words, a user does not have to specifically enter the name of a higher taxonomic group for it to be counted here.")
 ),
 mainPanel(
 highchartOutput("hcontainer",height = "500px")
