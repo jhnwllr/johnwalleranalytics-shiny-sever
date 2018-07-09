@@ -65,6 +65,7 @@ centroidData <- reactive({
 source("roundCoordinates.r")
   
 # cc = CoordinateCleaner::centroids
+# CoordinateCleaner does not work here 
 load("centroids.rda")
 cc = centroids
 cc = cc[cc$iso3 == "BRA",]
