@@ -1,5 +1,6 @@
 library(shiny)
 library(leaflet)
+library(CoordinateCleaner)
 library(countrycode)
 library(plyr)
 
@@ -13,7 +14,7 @@ sliderInput("resolution", "resolution",50, 500,value = 100, step = 50,ticks=FALS
 sliderInput("occurrence", "min number occurrences",1,10000,value = 1, step = 1,ticks=FALSE),
 textInput(inputId="textValue",value=1,label=NULL),
 sliderInput("year","recorded after",1870,2010,value = 1, step = 10,ticks=FALSE,sep=""),
-radioButtons("focalColumn", "count values",choices = c(species="species",genus="genus",family="family",occurrences="freq"),selected = "species"),
+radioButtons("focalColumn", "count values",choices = c(species="species",genus="genus",family="family",occurrences="occurrences"),selected = "species"),
 checkboxInput("centroidsCountry", "show potential country centroids", FALSE),
 checkboxInput("centroidsProvince", "show potential province centroids", FALSE),
 checkboxInput("centroidsCapitals", "show potential capital centroids", FALSE)
@@ -45,15 +46,14 @@ updateTextInput(session=session,inputId='textValue',value=input$occurrence)
   
     
 filteredData <- reactive({ 
-out = D[D$roundTo == (input$resolution/100) & D$freq >= input$occurrence,] 
+out = D[D$roundTo == (input$resolution/100) & D$occurrences >= input$occurrence,] 
 out = out[out$year == input$year,]
 # out = aggregate(cbind(species,genus,family,freq) ~ coordId + decimallatitudeRounded + decimallongitudeRounded + roundTo, data=D, sum)
 return(out)
 })
 
 capitalsData <- reactive({ 
-# capitals = CoordinateCleaner::capitals
-load("capitals.rda")
+capitals = CoordinateCleaner::capitals
 capitals = capitals[capitals$ISO3 == "BRA",]
 capitals$longitude = roundCoordinates(capitals$longitude,(input$resolution/100))
 capitals$latitude = roundCoordinates(capitals$latitude,(input$resolution/100))
@@ -63,9 +63,7 @@ return(capitals)
 centroidData <- reactive({ 
 source("roundCoordinates.r")
   
-# cc = CoordinateCleaner::centroids
-load("centroids.rda")
-cc = centroids
+cc = CoordinateCleaner::centroids
 cc = cc[cc$iso3 == "BRA",]
 
 out = cc # save to out just in case none are checked
