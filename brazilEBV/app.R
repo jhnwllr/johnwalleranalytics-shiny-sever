@@ -53,7 +53,8 @@ return(out)
 })
 
 capitalsData <- reactive({ 
-capitals = CoordinateCleaner::capitals
+# capitals = CoordinateCleaner::capitals
+load("capitals.rda")
 capitals = capitals[capitals$ISO3 == "BRA",]
 capitals$longitude = roundCoordinates(capitals$longitude,(input$resolution/100))
 capitals$latitude = roundCoordinates(capitals$latitude,(input$resolution/100))
@@ -63,7 +64,9 @@ return(capitals)
 centroidData <- reactive({ 
 source("roundCoordinates.r")
   
-cc = CoordinateCleaner::centroids
+# cc = CoordinateCleaner::centroids
+load("centroids.rda")
+cc = centroids
 cc = cc[cc$iso3 == "BRA",]
 
 out = cc # save to out just in case none are checked
